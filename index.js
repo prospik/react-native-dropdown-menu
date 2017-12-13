@@ -60,7 +60,7 @@ class DropdownMenu extends Component {
             }
 
             return (
-                <View style={{position: 'absolute', left: 0, right: 0, top: 40, bottom: 0, zIndex: 0}}>
+                <View style={{position: 'absolute', left: 0, right: 0, top: 35, bottom: 0, zIndex: 0}}>
                     <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 0}}>
                         <View style={{opacity: 0.4, backgroundColor: 'black', flex: 1 }} />
                     </TouchableOpacity>
