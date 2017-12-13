@@ -43,7 +43,7 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
     } else {
       return (
         <View style={[{flex: 1, justifyContent: 'space-between', alignItems: "center", paddingHorizontal: 15, flexDirection: 'row'}, this.props.selectWrapperStyle]} >
-          <Text style={[{color: 'black'}, this.selectItemStyle]} >{title}</Text>
+          <Text style={[{color: 'black'}, this.props.selectItemStyle]} >{title}</Text>
         </View>
       );
     }
