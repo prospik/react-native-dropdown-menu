@@ -60,12 +60,12 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
       }
 
       return (
-        <View style={{position: 'absolute', left: 0, right: 0, top: 40, bottom: 0}}>
-          <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}}>
+        <View style={{position: 'absolute', left: 0, right: 0, top: 40, bottom: 0, zIndex: 1000}}>
+          <TouchableOpacity onPress={() => this.openOrClosePanel(this.state.activityIndex)} activeOpacity={1} style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 1000}}>
             <View style={{opacity: 0.4, backgroundColor: 'black', flex: 1 }} />
           </TouchableOpacity>
 
-          <ScrollView style={[{position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white'}, heightStyle]} >
+          <ScrollView style={[{position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1000, backgroundColor: 'white'}, heightStyle]} >
             {
               currentTitles.map((title, index) =>
                 <TouchableOpacity key={index} activeOpacity={1} style={{flex: 1, height: this.props.itemHeight}} onPress={this.itemOnPress.bind(this, index)} >
@@ -140,7 +140,7 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
   }
 
   renderDropDownArrow(index) {
-    var icon = this.props.arrowImg ? this.props.arrowImg : require('./img/dropdown_arrow.png');
+    var icon = this.props.arrowImg ? this.props.arrowImg : require('./img/icon-dropdown-arrow-down.png');
 
     return (
       <Animated.Image
