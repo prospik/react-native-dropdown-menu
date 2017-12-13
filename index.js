@@ -1,5 +1,7 @@
 'use strict';
 
+// Developer of this component is dirty programmer! I haven't any time to clear it...
+
 import React, {Component, PropTypes} from 'react';
 import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Animated, Easing} from 'react-native';
 
@@ -33,15 +35,15 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
     if (this.state.selectIndex[activityIndex] == index) {
       var checkImage = this.props.checkImage ? this.props.checkImage : require('./img/menu_check.png');
       return (
-        <View style={{flex: 1, justifyContent: 'space-between', alignItems: "center", paddingHorizontal: 15, flexDirection: 'row'}} >
-          <Text style={{color: this.props.selectItemColor ? this.props.selectItemColor : this.defaultConfig.selectItemColor}} >{title}</Text>
-          <Image source={checkImage} />
+        <View style={[{flex: 1, justifyContent: 'space-between', alignItems: "center", paddingHorizontal: 15, flexDirection: 'row'}, this.props.selectedWrapperStyle]} >
+          <Text style={[{color: this.props.selectItemColor ? this.props.selectItemColor : this.defaultConfig.selectItemColor}, this.props.selectedItemStyle]} >{title}</Text>
+          <Image source={checkImage} style={this.props.itemImageStyle}/>
         </View>
       );
     } else {
       return (
-        <View style={{flex: 1, justifyContent: 'space-between', alignItems: "center", paddingHorizontal: 15, flexDirection: 'row'}} >
-          <Text style={{color: 'black'}} >{title}</Text>
+        <View style={[{flex: 1, justifyContent: 'space-between', alignItems: "center", paddingHorizontal: 15, flexDirection: 'row'}, this.props.selectWrapperStyle]} >
+          <Text style={[{color: 'black'}, this.selectItemStyle]} >{title}</Text>
         </View>
       );
     }
@@ -53,7 +55,7 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
       var currentTitles = this.props.data[this.state.activityIndex];
 
       var heightStyle = {};
-      if (this.props.maxHeight && this.props.maxHeight < currentTitles.length * 44) {
+      if (this.props.maxHeight && this.props.maxHeight < currentTitles.length * this.props.itemHeight) {
         heightStyle.height = this.props.maxHeight;
       }
 
@@ -66,9 +68,9 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
           <ScrollView style={[{position: 'absolute', top: 0, left: 0, right: 0, backgroundColor: 'white'}, heightStyle]} >
             {
               currentTitles.map((title, index) =>
-                <TouchableOpacity key={index} activeOpacity={1} style={{flex: 1, height: 44}} onPress={this.itemOnPress.bind(this, index)} >
+                <TouchableOpacity key={index} activeOpacity={1} style={{flex: 1, height: this.props.itemHeight}} onPress={this.itemOnPress.bind(this, index)} >
                   {this.renderChcek(index, title)}
-                  <View style={{backgroundColor: '#F6F6F6', height: 1, marginLeft: 15}} />
+                  <View style={[{backgroundColor: '#F6F6F6', height: 1, marginLeft: 15}, this.props.borderBottomStyle]} />
                 </TouchableOpacity>
               )
             }
@@ -84,7 +86,6 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
 
     this.props.bannerAction ? this.props.bannerAction() : null;
 
-    // var toValue = 0.5;
     if (this.state.activityIndex == index) {
       this.closePanel(index);
       this.setState({
@@ -99,16 +100,7 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
       this.setState({
         activityIndex: index,
       });
-      // toValue = 0.5;
     }
-    // Animated.timing(
-    //   this.state.rotationAnims[index],
-    //   {
-    //     toValue: toValue,
-    //     duration: 300,
-    //     easing: Easing.linear
-    //   }
-    // ).start();
   }
 
   openPanel(index) {
@@ -153,12 +145,12 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
     return (
       <Animated.Image
         source={icon}
-        style={{marginLeft: 8, transform: [{
-          rotateZ: this.state.rotationAnims[index].interpolate({
-            inputRange: [0, 1],
-            outputRange: ['0deg', '360deg']
-          })
-        }]}} />
+        style={[{marginLeft: 8, transform: [{
+            rotateZ: this.state.rotationAnims[index].interpolate({
+                inputRange: [0, 1],
+                outputRange: ['0deg', '360deg']
+            })
+        }]}, this.props.arrowImageStyle]} />
     );
   }
 
@@ -174,9 +166,9 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
                 activeOpacity={1}
                 onPress={this.openOrClosePanel.bind(this, index)}
                 key={index}
-                style={{flex: 1, height: 40, alignItems: "center", justifyContent: "center"}} >
+                style={[{flex: 1, height: 40, alignItems: "center", justifyContent: "center"}, this.props.headerItemStyle]} >
                 <View style={{flexDirection: 'row', alignItems: "center", justifyContent: "center"}} >
-                  <Text style={{color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor, fontSize: 13}} >{rows[this.state.selectIndex[index]]}</Text>
+                  <Text style={[{color: this.props.tintColor ? this.props.tintColor : this.defaultConfig.tintColor, fontSize: 13}, this.props.headerTextStyle]} >{rows[this.state.selectIndex[index]]}</Text>
                   {this.renderDropDownArrow(index)}
                 </View>
               </TouchableOpacity>
@@ -193,25 +185,16 @@ import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Ani
 
 }
 
-// this.defaultConfig = {
-//       bgColor: 'grey',
-//       tintColor: 'white',
-//       selectItemColor: "red",
-//       arrowImg: './img/dropdown_arrow.png',
-//       checkImage: './img/menu_check.png'
-//     };
-
-
 
 DropdownMenu.propTypes = {
   bgColor: PropTypes.string,
-  tintColor:PropTypes.string,
-  selectItemColor:PropTypes.string,
-  arrowImg:PropTypes.number,
-  checkImage:PropTypes.number,
-  data:PropTypes.array,
-  bannerAction:PropTypes.func,
+  tintColor: PropTypes.string,
+  selectItemColor: PropTypes.string,
+  arrowImg: PropTypes.number,
+  checkImage: PropTypes.number,
+  data: PropTypes.array,
+  bannerAction: PropTypes.func,
 
-}
+};
 
 export default DropdownMenu;
