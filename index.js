@@ -12,7 +12,7 @@ class DropdownMenu extends Component {
 
         var selectIndex = new Array(this.props.data.length);
         for (var i = 0; i < selectIndex.length; i++) {
-            selectIndex[i] = 0;
+            selectIndex[i] = this.props.selectIndex;
         }
         this.state = {
             activityIndex: this.props.activityIndex,
@@ -93,6 +93,7 @@ class DropdownMenu extends Component {
             });
             // toValue = 0;
         } else {
+            // this.closeMenu(index);
             if (this.state.activityIndex > -1) {
                 this.closePanel(this.state.activityIndex);
             }
@@ -124,6 +125,14 @@ class DropdownMenu extends Component {
             }
         ).start();
     }
+
+    // closeMenu = (index) => {
+    //     const { bannerAction } = this.props;
+    //
+    //     bannerAction ? bannerAction() : null;
+    //     this.closePanel(index);
+    //     this.setState({ activityIndex: -1 });
+    // };
 
     itemOnPress(index) {
         if (this.state.activityIndex > -1) {
