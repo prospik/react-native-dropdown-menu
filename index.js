@@ -93,7 +93,7 @@ class DropdownMenu extends Component {
             });
             // toValue = 0;
         } else {
-            // this.closeMenu(index);
+            this.closeMenu(index);
             if (this.state.activityIndex > -1) {
                 this.closePanel(this.state.activityIndex);
             }
@@ -126,13 +126,13 @@ class DropdownMenu extends Component {
         ).start();
     }
 
-    // closeMenu = (index) => {
-    //     const { bannerAction } = this.props;
-    //
-    //     bannerAction ? bannerAction() : null;
-    //     this.closePanel(index);
-    //     this.setState({ activityIndex: -1 });
-    // };
+    closeMenu = (index) => {
+        const { bannerAction } = this.props;
+
+        bannerAction ? bannerAction() : null;
+        this.closePanel(index);
+        this.setState({ activityIndex: -1 });
+    };
 
     itemOnPress(index) {
         if (this.state.activityIndex > -1) {
@@ -155,11 +155,11 @@ class DropdownMenu extends Component {
             <Animated.Image
                 source={icon}
                 style={[{marginLeft: 8, transform: [{
-                    rotateZ: this.state.rotationAnims[index].interpolate({
-                        inputRange: [0, 1],
-                        outputRange: ['0deg', '360deg']
-                    })
-                }]}, this.props.arrowImageStyle]} />
+                        rotateZ: this.state.rotationAnims[index].interpolate({
+                            inputRange: [0, 1],
+                            outputRange: ['0deg', '360deg']
+                        })
+                    }]}, this.props.arrowImageStyle]} />
         );
     }
 
