@@ -2,8 +2,9 @@
 
 // Developer of this component is dirty programmer! I haven't any time to clear it...
 
-import React, {Component, PropTypes} from 'react';
-import {View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Animated, Easing} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TouchableHighlight, Image, TouchableOpacity, ScrollView, Animated, Easing } from 'react-native';
+import PropTypes from 'prop-types';
 
 class DropdownMenu extends Component {
 
